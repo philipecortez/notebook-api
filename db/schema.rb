@@ -16,6 +16,8 @@ ActiveRecord::Schema.define(version: 2019_08_02_150952) do
     t.string "name"
     t.string "email"
     t.date "birthdate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

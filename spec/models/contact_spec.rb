@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Contact do
-  it "is valid with valid attributs" do
+  it "is valid with valid attributes" do
     contact = build(:contact)
     expect(contact).to be_valid
   end
@@ -13,6 +13,11 @@ RSpec.describe Contact do
 
   it "is not valid without a name" do
     contact = build(:contact, name: nil)
+    expect(contact).not_to be_valid
+  end
+
+  it 'is not valid without a kind' do
+    contact = build(:contact, kind_id: nil)
     expect(contact).not_to be_valid
   end
 

@@ -28,13 +28,20 @@ RSpec.describe Api::V1::ContactsController do
   end
 
   describe 'POST #create' do
+    before do
+      ['Friend', 'Coleague', 'Comercial'].each do |kind|
+        create(:kind, description: kind)
+      end
+    end
+
     context 'when the params are ok' do
       it 'creates a contact according to the params' do
         post :create, params: { 
           contact: {
             name: 'Philipe',
             email: 'philipesousacortez@protonmail.com',
-            birthdate: '1993-09-17 '
+            birthdate: '1993-09-17',
+            kind_id: 1
           }
         }
 
@@ -55,7 +62,8 @@ RSpec.describe Api::V1::ContactsController do
           contact: {
             name: 'Philipe',
             email: '',
-            date: '1993-09-17'
+            date: '1993-09-17',
+            kind_id: 1
           }
         }
 
@@ -66,14 +74,13 @@ RSpec.describe Api::V1::ContactsController do
   end
 
   describe 'PUT #update' do
-    xcontext 'when the params are ok' do
+    context 'when the params are ok' do
       before do
-        @contact = create(:contact, name: 'Bryan', email: 'aleshia.kris@example.org', birthdate: '2000-07-06')
-        @expected_response = {id: 1, name: 'John Doe', email: 'aleshia.kris@example.org', birthdate: '2000-07-06'}
+        @contact = create(:contact, name: 'Bryan')
       end
 
       it 'updates the contact' do
-        put :update, params: {
+        patch :update, params: {
           id: @contact.id,
           contact: {
             name: 'John Doe'
@@ -81,7 +88,7 @@ RSpec.describe Api::V1::ContactsController do
         }
 
         expect(response.status).to eq(200)
-        expect(response.body).to eq(@expected_response.to_json)
+        expect(@contact.reload.name).to eq('John Doe')
       end
     end
 

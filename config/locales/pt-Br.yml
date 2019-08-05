@@ -1,2 +1,26 @@
 'pt-Br':
-  hello: "Ola mundo"
+  activerecord:
+    errors:
+      models:
+        kind: 'tipo'
+        kind:
+          attributes:
+            description: 'descricao'
+            description:
+              blank: 'Nao pode estar em branco'
+        contact: 'contato'
+        contact:
+          attributes:
+            name: 'nome'
+            name:
+              taken: 'Ja esta sendo usado'
+              blank: 'Nao pode estar em branco'
+            email: 'email'
+            email:
+              taken: 'Ja esta sendo usado'
+              blank: 'Nao pode estar em branco'
+            birthdate: 'data de nascimento'
+        phone: 'telefone'
+        phone:
+          attributes:
+            number: 'numero'

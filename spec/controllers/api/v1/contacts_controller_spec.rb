@@ -53,7 +53,7 @@ RSpec.describe Api::V1::ContactsController do
     context 'when there are problems with the params' do
       before do
         @expected_response = {
-          email: ["can't be blank"]
+          email: ["Nao pode estar em branco"]
         }
       end
 
@@ -96,7 +96,7 @@ RSpec.describe Api::V1::ContactsController do
       before do
         create(:contact, name: "Bryan", email: "aleshia.kris@example.org", birthdate: "2000-07-06")
         create(:contact, name: "John Doe")
-        @expected_response = { name: ["has already been taken"] }
+        @expected_response = { name: ["Ja esta sendo usado"] }
       end
 
       it 'returns an error' do

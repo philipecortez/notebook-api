@@ -10,6 +10,14 @@ namespace :dev do
     puts "===== creating contacts..."
     100.times { FactoryBot.create(:contact) }
     puts "===== contacts created!"
+
+    puts "===== creating phone numbers..."
+    Contact.all.each do |contact|
+      rand(1..3).times.each do
+        FactoryBot.create(:phone, contact: contact)
+      end
+    end
+    puts "===== phone numbers created!"
   end
 
 end

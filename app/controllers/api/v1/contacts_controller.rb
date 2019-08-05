@@ -12,8 +12,7 @@ class Api::V1::ContactsController < ApplicationController
 
   def create
     @contact = Contact.new(contact_params)
-    p @contact.errors
-    p Kind.all
+
     if @contact.save
       render json: @contact, status: :created
     else
@@ -37,7 +36,10 @@ class Api::V1::ContactsController < ApplicationController
   private
 
   def contact_params
-    params.require(:contact).permit(:name, :email, :birthdate, :kind_id)
+    params.require(:contact).permit(
+      :name, :email, :birthdate, :kind_id,
+      phones_attributes: [:number, :_destroy]
+    )
   end
 
   def set_contact

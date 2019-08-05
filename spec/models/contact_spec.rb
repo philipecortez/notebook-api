@@ -1,39 +1,52 @@
 require 'rails_helper'
 
 RSpec.describe Contact do
+  before do
+    @contact = build(:contact)
+  end
+
   it "is valid with valid attributes" do
-    contact = build(:contact)
-    expect(contact).to be_valid
+    expect(@contact).to be_valid
   end
 
-  it "is not valid without an email" do
-    contact = build(:contact, email: nil)
-    expect(contact).not_to be_valid
+  describe '#name' do
+    it "is not valid without a name" do
+      @contact.name = nil
+      expect(@contact).not_to be_valid
+    end
+
+    it "has a unique name" do
+      create(:contact, name: "Philipe")
+      @contact.name = "Philipe"
+
+      expect(@contact).not_to be_valid
+      expect(@contact.errors.details).to include(name: [{error: :taken, value: 'Philipe'}])
+    end
   end
 
-  it "is not valid without a name" do
-    contact = build(:contact, name: nil)
-    expect(contact).not_to be_valid
+  describe '#email' do
+    it "is not valid without an email" do
+      @contact.email = nil
+
+      expect(@contact).not_to be_valid
+      expect(@contact.errors.details).to include(email: [{error: :blank}])
+    end
+
+    it "has a unique email" do
+      create(:contact, email: "philipesousacortez@protonmail.com")
+      @contact.email = "philipesousacortez@protonmail.com"
+
+      expect(@contact).not_to be_valid
+      expect(@contact.errors.details[:email]).to include(error: :taken, value: "philipesousacortez@protonmail.com")
+    end
   end
 
-  it 'is not valid without a kind' do
-    contact = build(:contact, kind_id: nil)
-    expect(contact).not_to be_valid
-  end
+  describe '#kind' do
+    it 'is not valid without a kind' do
+      @contact.kind_id = nil
 
-  it "has a unique name" do
-    create(:contact, name: "Philipe")
-    contact = build(:contact, name: "Philipe")
-
-    expect(contact).not_to be_valid
-    expect(contact.errors.messages).to eq(name: ["has already been taken"])
-  end
-
-  it "has a unique email" do
-    create(:contact, email: "philipesousacortez@protonmail.com")
-    contact = build(:contact, email: "philipesousacortez@protonmail.com")
-
-    expect(contact).not_to be_valid
-    expect(contact.errors.messages).to eq(email: ["has already been taken"])
+      expect(@contact).not_to be_valid
+      expect(@contact.errors.details).to include(kind: [{error: :blank}])
+    end
   end
 end

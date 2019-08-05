@@ -3,18 +3,12 @@ class Contact < ApplicationRecord
   validates :email, :name, uniqueness: true
 
   belongs_to :kind
+  has_many :phones, dependent: :destroy
 
-=begin
-  def author
-    "Philipe S. Cortez"
-  end
+  accepts_nested_attributes_for :phones
 
   def as_json(options={})
-    super(
-      root: true,
-      methods: :author,
-      include: :kind
-    )
+    super(options.merge(include: [:kind, :phones]))
   end
-=end
+
 end

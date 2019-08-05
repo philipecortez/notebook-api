@@ -44,7 +44,7 @@ RSpec.describe Api::V1::KindsController do
     context 'when there is a problem with the params' do
       before do
         @expected_response = {
-          description: ["can't be blank"]
+          description: ["Nao pode estar em branco"]
         }.to_json
       end
 
@@ -82,7 +82,7 @@ RSpec.describe Api::V1::KindsController do
       context 'when there is a problem with the params' do
         before do
           create(:kind)
-          @expected_response = { description: ["can't be blank"] }.to_json
+          @expected_response = { description: ['Nao pode estar em branco'] }.to_json
         end
 
         it 'returns an error message' do

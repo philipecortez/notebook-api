@@ -13,6 +13,7 @@ RSpec.describe Contact do
     it "is not valid without a name" do
       @contact.name = nil
       expect(@contact).not_to be_valid
+      expect(@contact.errors.details).to include(name: [{error: :blank}])
     end
 
     it "has a unique name" do

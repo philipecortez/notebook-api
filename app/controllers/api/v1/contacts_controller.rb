@@ -38,7 +38,8 @@ class Api::V1::ContactsController < ApplicationController
   def contact_params
     params.require(:contact).permit(
       :name, :email, :birthdate, :kind_id,
-      phones_attributes: [:number, :_destroy]
+      phones_attributes: [:id, :number, :_destroy],
+      address_attributes: [:id, :city, :street]
     )
   end
 

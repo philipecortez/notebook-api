@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.0'
@@ -18,6 +18,8 @@ gem 'rails-i18n'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+# ActiveModel::Serializer implementation and Rails hooks
+gem 'active_model_serializers', '~> 0.10.0'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

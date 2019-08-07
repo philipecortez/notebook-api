@@ -3,31 +3,61 @@ require 'rails_helper'
 RSpec.describe Api::V1::KindsController do
   describe 'GET #index' do
     before do
-      @kinds = create(:kind, description: 'teste')
+      create(:kind, description: 'teste')
+      @expected = {
+        data: [{
+          id: '1',
+          type: 'kinds',
+          attributes: {
+            description: 'teste'
+          }
+        }]
+      }
     end
 
     it 'returns a array of kinds' do
       get :index
 
-      expect(response.body).to eq([@kinds].to_json)
+      expect(response.body).to eq(@expected.to_json)
       expect(response.status).to eq(200)
     end
   end
 
   describe 'GET #show' do
     before do
-      @kind = create(:kind)
+      create(:kind, description: 'teste')
+      @expected = {
+        data: {
+          id: '1',
+          type: 'kinds',
+          attributes: {
+            description: 'teste'
+          }
+        }
+      }
     end
 
     it 'returns one specific kind' do
       get :show, params: { id: 1 }
 
-      expect(response.body).to eq(@kind.to_json)
+      expect(response.body).to eq(@expected.to_json)
       expect(response.status).to eq(200)
     end
   end
 
   describe 'POST #create' do
+    before do
+      @expected = {
+        data: {
+          id: '1',
+          type: 'kinds',
+          attributes: {
+            description: 'teste'
+          }
+        }
+      }
+    end
+
     context 'when the params are ok' do
       it 'creates a kind based on params' do
         post :create, params: {
@@ -36,7 +66,7 @@ RSpec.describe Api::V1::KindsController do
           }
         }
 
-        expect(response.body).to eq(Kind.last.to_json)
+        expect(response.body).to eq(@expected.to_json)
         expect(response.status).to eq(201)
       end
     end

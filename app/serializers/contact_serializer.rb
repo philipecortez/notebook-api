@@ -1,0 +1,19 @@
+class ContactSerializer < ActiveModel::Serializer
+  attributes :id, :name, :email
+  attribute :formated_birthdate, key: :birthdate
+
+  belongs_to :kind do
+    link(:related) { api_v1_kind_url(object.kind) }
+  end
+
+  has_many :phones
+  has_one :address
+
+  def formated_birthdate
+    object.birthdate.to_time.iso8601
+  end
+
+  meta do
+    { author: 'Philipe S. Cortez' }
+  end
+end

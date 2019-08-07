@@ -50,4 +50,12 @@ RSpec.describe Contact do
       expect(@contact.errors.details).to include(kind: [{error: :blank}])
     end
   end
+=begin
+  describe '#formated_birthdate' do
+    it 'formats the birthdate according to the iso 8601' do
+      @contact.birthdate = Date.new(1991,03,10)
+      expect(@contact.formated_birthdate).to eq("1991-03-10T00:00:00-03:00")
+    end
+  end
+=end
 end

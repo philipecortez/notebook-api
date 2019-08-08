@@ -2,7 +2,7 @@ class Api::V1::ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :update, :destroy]
 
   def index
-    @contacts = Contact.all
+    @contacts = Contact.includes(:kind, :phones, :address).all
     render json: @contacts, status: :ok
   end
 
@@ -44,6 +44,6 @@ class Api::V1::ContactsController < ApplicationController
   end
 
   def set_contact
-    @contact = Contact.find(params[:id])
+    @contact = Contact.includes(:phones, :kind, :address).find(params[:id])
   end
 end

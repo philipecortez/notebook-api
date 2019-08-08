@@ -1,6 +1,6 @@
-class Api::V1::ContactKindController < ApplicationController
+class Api::V1::ContactKindController < Api::V1::ContactsController
   def show
-    @kind = Contact.find(params[:contact_id]).kind
+    @kind = @contact.kind
     render json: @kind, status: :ok
   end
 end

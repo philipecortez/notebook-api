@@ -44,6 +44,10 @@ class Api::V1::ContactsController < ApplicationController
   end
 
   def set_contact
-    @contact = Contact.includes(:phones, :kind, :address).find(params[:id])
+    @contact = if params[:id]
+      Contact.includes(:phones, :kind, :address).find(params[:id])
+    else
+      Contact.includes(:phones, :kind, :address).find(params[:contact_id])
+    end
   end
 end
